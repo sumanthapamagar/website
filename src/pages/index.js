@@ -1,33 +1,37 @@
-import * as React from "react"
+import * as React from "react";
+
 import { useWindowDimensions } from "../hooks/useWindowDimensions";
-import { useEffect } from "react";
-
-const pageStyles = {
-  color: "#232129",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-  fontWeight: "bold"
-}
-
+import Layout from "../components/layout";
 const IndexPage = () => {
+    const { width } = useWindowDimensions();
 
-  const { width } = useWindowDimensions();
+    const [nameStyles, setNameStyles] = React.useState({ fontSize: 100 });
 
-  const [nameStyles, setNameStyles] = React.useState({fontSize: 100}) 
+    React.useEffect(() => {
+        setNameStyles({ fontSize: Math.floor(width / 8) });
+    }, [width]);
 
-  useEffect(() => {
-    setNameStyles({fontSize : Math.floor(width / 8)})
-  }, [width])
+    return (
+        <Layout>
+            <div style={{ padding: "50px 40px" }}>
+                <span
+                    className="inline bg-gradient-to-r from-indigo-100 via-sky-400 to-indigo-500 bg-clip-text font-light tracking-tight text-transparent"
+                    style={nameStyles}
+                >
+                    Suman
+                    <br />
+                    Thapa Magar
+                </span>
+            </div>
+            <section className="text-center lg:py-8">
+                <a href="mailto:hello@sumanthapamagar.com">
+                    hello@sumanthapamagar.com
+                </a>
+            </section>
+        </Layout>
+    );
+};
 
-  return (
-    <main style={pageStyles}>
-      <div style={{padding: "50px 40px"}}>
-      <span style={nameStyles}>Suman<br />Thapa Magar</span>
-      </div>
-      <a href="mailto:hello@sumanthapamagar.com">hello@sumanthapamagar.com</a>
-    </main>
-  )
-}
+export default IndexPage;
 
-export default IndexPage
-
-export const Head = () => <title>Home Page</title>
+export const Head = () => <title>Home Page</title>;
